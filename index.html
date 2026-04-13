@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TESTE LAMONIÊ FLASH</title>
+    <title>LAMONIÊ FLASH TOTAL</title>
     <style>
         :root {
             --yt-black: #0f0f0f;
@@ -15,7 +15,7 @@
         body {
             background-color: var(--yt-black);
             color: var(--yt-white);
-            font-family: Arial, sans-serif;
+            font-family: Roboto, Arial, sans-serif;
             margin: 0;
             padding-bottom: 70px;
         }
@@ -23,88 +23,89 @@
         header {
             display: flex;
             align-items: center;
-            padding: 10px 16px;
-            height: 40px;
+            justify-content: space-between;
+            padding: 0 16px;
+            height: 56px;
             position: fixed;
             top: 0;
             width: 100%;
             background: var(--yt-black);
             z-index: 1000;
-            border-bottom: 1px solid #333;
+            box-sizing: border-box;
         }
 
-        .logo {
-            font-weight: bold;
-            font-size: 18px;
-            color: var(--lamonie-gold);
-        }
+        .logo { font-weight: bold; font-size: 18px; color: var(--lamonie-gold); }
 
-        /* ÁREA DO VÍDEO FIXA NO TOPO */
+        /* PLAYER FIXO */
         #video-container {
             width: 100%;
             position: fixed;
-            top: 60px;
+            top: 56px;
             z-index: 900;
             background: #000;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.8);
         }
 
-        .video-wrapper {
-            width: 100%;
-            aspect-ratio: 16 / 9;
-        }
+        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* BOTÕES DE CATEGORIA */
+        /* BOTÕES QUE FUNCIONAM */
         .categories {
             display: flex;
             overflow-x: auto;
             padding: 12px;
             gap: 10px;
-            margin-top: calc(60px + 56.25vw);
+            margin-top: calc(56px + 56.25vw);
+            background: var(--yt-black);
+            position: sticky;
+            top: calc(56px + 56.25vw);
+            z-index: 800;
         }
 
         .cat-btn {
             background: var(--yt-gray);
             color: white;
             padding: 8px 15px;
-            border-radius: 20px;
+            border-radius: 8px;
             border: none;
             font-size: 14px;
             white-space: nowrap;
-        }
-
-        /* LISTA DE VÍDEOS PARA CLICAR */
-        .feed { padding: 15px; }
-        
-        .video-item {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
             cursor: pointer;
-            background: #1a1a1a;
+        }
+
+        .cat-btn:hover { background: #444; }
+
+        /* FEED COM MUITOS VÍDEOS */
+        .feed {
             padding: 10px;
-            border-radius: 8px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        
+        .video-card {
+            cursor: pointer;
+            transition: 0.3s;
         }
 
-        .thumb-box {
-            width: 140px;
-            height: 80px;
+        .video-card img {
+            width: 100%;
+            aspect-ratio: 16/9;
+            border-radius: 12px;
             background: #333;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            color: #777;
+            object-fit: cover;
         }
 
-        .video-info h3 { font-size: 14px; margin: 0; }
-        .video-info p { font-size: 12px; color: #aaa; margin-top: 5px; }
+        .video-card h3 {
+            font-size: 14px;
+            margin: 10px 0 5px 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+
+        .video-card p { font-size: 12px; color: #aaa; margin: 0; }
 
         .nav-bar {
             position: fixed;
@@ -116,6 +117,7 @@
             justify-content: space-around;
             align-items: center;
             border-top: 1px solid #333;
+            z-index: 1000;
         }
     </style>
 </head>
@@ -123,51 +125,76 @@
 
     <header>
         <div class="logo">LAMONIÊ FLASH PREMIERE</div>
+        <div style="font-size: 20px;">🔍</div>
     </header>
 
     <div id="video-container">
         <div class="video-wrapper">
-            <iframe id="player" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?modestbranding=1&rel=0" allowfullscreen></iframe>
+            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?autoplay=1&modestbranding=1" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="categories">
-        <button class="cat-btn">Tudo</button>
-        <button class="cat-btn">Forró</button>
-        <button class="cat-btn">Notícias</button>
-        <button class="cat-btn">Ceará</button>
+        <button class="cat-btn" onclick="filtrar('Tudo')">Tudo</button>
+        <button class="cat-btn" onclick="filtrar('Forró das Antigas')">Forró</button>
+        <button class="cat-btn" onclick="filtrar('Notícias do Ceará')">Notícias</button>
+        <button class="cat-btn" onclick="filtrar('Luiz Gonzaga Rei do Baião')">Luiz Gonzaga</button>
+        <button class="cat-btn" onclick="filtrar('Ao vivo agora')">Ao Vivo</button>
     </div>
 
-    <main class="feed">
-        <div class="video-item" onclick="trocarVideo('dQw4w9WgXcQ', 'Música de Teste 1')">
-            <div class="thumb-box">VÍDEO 1</div>
-            <div class="video-info">
-                <h3>Teste: Luiz Gonzaga - Asa Branca</h3>
-                <p>Lamoniê Flash • Canal Oficial</p>
-            </div>
-        </div>
-
-        <div class="video-item" onclick="trocarVideo('L_jWHffIx5E', 'Música de Teste 2')">
-            <div class="thumb-box">VÍDEO 2</div>
-            <div class="video-info">
-                <h3>Teste: Forró das Antigas</h3>
-                <p>Lamoniê Flash • Canal Oficial</p>
-            </div>
-        </div>
-    </main>
+    <main class="feed" id="videoFeed">
+        </main>
 
     <nav class="nav-bar">
-        <span>Início</span>
-        <span>Shorts</span>
-        <span>Canal</span>
+        <span>🏠 Início</span>
+        <span>🎬 Shorts</span>
+        <span>📂 Canal</span>
     </nav>
 
     <script>
-        function trocarVideo(id, titulo) {
-            // O segredo do teste está no 'youtube-nocookie' para ver se corta os comerciais
-            document.getElementById('player').src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&modestbranding=1&rel=0";
-            window.scrollTo(0,0);
+        // Lista de vídeos para simular o "leque" aberto sem usar API Key
+        const bancoDeDados = [
+            {id: 'dQw4w9WgXcQ', title: 'Asa Branca - Clássico Rei', cat: 'Luiz Gonzaga'},
+            {id: 'L_jWHffIx5E', title: 'Melhores do Forró das Antigas', cat: 'Forró'},
+            {id: 'v2AC41dglnM', title: 'Notícias Urgentes Ceará', cat: 'Notícias'},
+            {id: 'hT_nvWreIhg', title: 'Luiz Gonzaga - O Xote das Meninas', cat: 'Luiz Gonzaga'},
+            {id: '5p_2u87N644', title: 'Grandes Sucessos Mastruz com Leite', cat: 'Forró'},
+            {id: 'JFm7YhUz_S4', title: 'Ao Vivo: Rádio Verdes Mares', cat: 'Ao Vivo'},
+            {id: '2m-D9m_9SgU', title: 'Notícias de Jaíbaras e Região', cat: 'Notícias'},
+            {id: 'k_vMv7v6Y_o', title: 'Dominguinhos & Luiz Gonzaga', cat: 'Luiz Gonzaga'}
+        ];
+
+        function carregarFeed(videos) {
+            const feed = document.getElementById('videoFeed');
+            feed.innerHTML = '';
+            
+            videos.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => {
+                    document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&modestbranding=1`;
+                    window.scrollTo(0,0);
+                };
+                card.innerHTML = `
+                    <img src="https://img.youtube.com/vi/${v.id}/mqdefault.jpg">
+                    <h3>${v.title}</h3>
+                    <p>Lamoniê Flash • 2026</p>
+                `;
+                feed.appendChild(card);
+            });
         }
+
+        function filtrar(categoria) {
+            if(categoria === 'Tudo') {
+                carregarFeed(bancoDeDados);
+            } else {
+                const filtrados = bancoDeDados.filter(v => v.cat.includes(categoria) || v.title.includes(categoria));
+                carregarFeed(filtrados);
+            }
+        }
+
+        // Inicia carregando tudo
+        carregarFeed(bancoDeDados);
     </script>
 
 </body>
