@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LAMONIÊ FLASH PREMIERE</title>
+    <title>TESTE DE INTERFACE - LAMONIÊ</title>
     <style>
         :root {
             --yt-black: #0f0f0f;
@@ -22,7 +22,6 @@
             overflow-x: hidden;
         }
 
-        /* --- HEADER ESTILO YOUTUBE --- */
         header {
             display: flex;
             align-items: center;
@@ -36,28 +35,19 @@
             z-index: 1000;
         }
 
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 4px;
-            cursor: pointer;
-        }
-
         .logo-text {
             font-weight: bold;
             font-size: 18px;
-            letter-spacing: -0.5px;
             color: var(--lamonie-gold);
         }
 
-        /* --- ÁREA DO PLAYER (O MOTOR DO APP) --- */
+        /* --- PLAYER FIXO NO TOPO --- */
         #video-viewport {
             width: 100%;
             position: fixed;
             top: 56px;
             background: #000;
             z-index: 900;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.5);
         }
 
         .video-wrapper {
@@ -71,16 +61,15 @@
             border: none;
         }
 
-        /* --- CARROSSEL DE CATEGORIAS (SEM EMOJIS) --- */
+        /* --- CATEGORIAS --- */
         .categories {
             display: flex;
             overflow-x: auto;
             padding: 12px;
             gap: 12px;
-            margin-top: calc(56px + 56.25vw); /* Ajuste dinâmico */
+            margin-top: calc(56px + 56.25vw); 
             scrollbar-width: none;
         }
-
         .categories::-webkit-scrollbar { display: none; }
 
         .cat-btn {
@@ -92,67 +81,33 @@
             font-size: 14px;
             font-weight: 500;
             white-space: nowrap;
-            cursor: pointer;
-            transition: 0.2s;
         }
 
-        .cat-btn:active {
-            background: var(--yt-white);
-            color: black;
-        }
-
-        /* --- LISTA DE VÍDEOS ESTILO FEED --- */
-        .feed {
-            padding: 10px;
-        }
-
+        /* --- LISTA DE VÍDEOS (ESQUELETO) --- */
+        .feed { padding: 10px; }
         .video-card {
             display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 12px;
+            margin-bottom: 15px;
+            background: #1a1a1a;
+            padding: 8px;
+            border-radius: 8px;
             cursor: pointer;
         }
-
-        .thumbnail {
-            width: 100%;
-            aspect-ratio: 16/9;
-            background: var(--yt-gray);
-            border-radius: 12px;
-            object-fit: cover;
-        }
-
-        .video-details {
+        .thumb-demo {
+            width: 120px;
+            height: 68px;
+            background: #333;
+            border-radius: 4px;
             display: flex;
-            gap: 12px;
-            padding: 0 4px;
+            align-items: center;
+            justify-content: center;
+            font-size: 10px;
+            color: #666;
         }
+        .info-demo h3 { font-size: 14px; margin: 0; color: #eee; }
+        .info-demo p { font-size: 12px; color: #888; margin: 4px 0 0; }
 
-        .channel-icon {
-            width: 36px;
-            height: 36px;
-            background: #444;
-            border-radius: 50%;
-            flex-shrink: 0;
-        }
-
-        .text-info h3 {
-            font-size: 14px;
-            margin: 0 0 4px 0;
-            line-height: 1.4;
-            display: -webkit-box;
-            -webkit-line-clamp: 2;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-
-        .text-info p {
-            font-size: 12px;
-            color: #aaa;
-            margin: 0;
-        }
-
-        /* --- BARRA DE NAVEGAÇÃO INFERIOR --- */
         .bottom-nav {
             position: fixed;
             bottom: 0;
@@ -165,109 +120,57 @@
             border-top: 1px solid #333;
             z-index: 1000;
         }
-
-        .nav-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 4px;
-            font-size: 10px;
-            color: var(--yt-white);
-            cursor: pointer;
-        }
-
-        .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
-
-        /* Estilo para TVs e telas grandes */
-        @media (min-width: 1000px) {
-            .video-wrapper { width: 70%; margin: 0 auto; }
-            .feed { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
-        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-container" onclick="window.location.reload()">
-            <svg width="30" height="20" viewBox="0 0 24 24"><path fill="red" d="M23.5 6.2c-.3-1.1-1-2-2.1-2.3C19.5 3.4 12 3.4 12 3.4s-7.5 0-9.4.5c-1 .3-1.8 1.1-2.1 2.3C0 8.1 0 12 0 12s0 3.9.5 5.8c.3 1.1 1 2 2.1 2.3 1.9.5 9.4.5 9.4.5s7.5 0 9.4-.5c1-.3 1.8-1.1 2.1-2.3.5-1.9.5-5.8.5-5.8s0-3.9-.5-5.8z"/><path fill="white" d="M9.5 15.5V8.5l6.3 3.5z"/></svg>
-            <span class="logo-text">Lamoniê Flash</span>
-        </div>
+        <div class="logo-text">LAMONIÊ FLASH</div>
         <svg fill="white" width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
     </header>
 
     <div id="video-viewport">
         <div class="video-wrapper">
-            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=MusicaNordestina&modestbranding=1&rel=0" allowfullscreen></iframe>
+            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=LuizGonzaga&modestbranding=1" allowfullscreen></iframe>
         </div>
     </div>
 
     <div class="categories">
-        <button class="cat-btn" onclick="searchVideos('Tudo')">Tudo</button>
-        <button class="cat-btn" onclick="searchVideos('Forró das Antigas')">Forró</button>
-        <button class="cat-btn" onclick="searchVideos('Notícias de hoje')">Notícias</button>
-        <button class="cat-btn" onclick="searchVideos('Icl Notícias')">ICL</button>
-        <button class="cat-btn" onclick="searchVideos('Luiz Gonzaga')">Rei do Baião</button>
-        <button class="cat-btn" onclick="searchVideos('Manual do Mundo')">Manual do Mundo</button>
+        <button class="cat-btn">Tudo</button>
+        <button class="cat-btn">Forró</button>
+        <button class="cat-btn">Notícias</button>
+        <button class="cat-btn">Ao Vivo</button>
     </div>
 
-    <main class="feed" id="videoFeed">
-        </main>
+    <main class="feed">
+        <div class="video-card" onclick="loadVideo('dQw4w9WgXcQ')">
+            <div class="thumb-demo">VÍDEO 1</div>
+            <div class="info-demo">
+                <h3>Teste de Vídeo - Clique aqui</h3>
+                <p>Canal de Teste • 100k visualizações</p>
+            </div>
+        </div>
+        <div class="video-card" onclick="loadVideo('L_jWHffIx5E')">
+            <div class="thumb-demo">VÍDEO 2</div>
+            <div class="info-demo">
+                <h3>Outro Vídeo de Exemplo</h3>
+                <p>Canal Lamoniê • 50k visualizações</p>
+            </div>
+        </div>
+    </main>
 
     <nav class="bottom-nav">
-        <div class="nav-item" onclick="window.scrollTo(0,0)">
-            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
-            <span>Início</span>
-        </div>
-        <div class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33-1.2-.5L18 8.06c1.84-1.2 2.32-3.61 1.08-5.41-1.2-1.84-3.61-2.32-5.41-1.08L5 7.08C3.12 8.38 2.73 10.88 4.05 12.63l1.2.5L4 14.94c-1.84 1.2-2.32 3.61-1.08 5.41 1.2 1.84 3.61 2.32 5.41 1.08l8.67-5.51c1.87-1.3 2.26-3.8 0.94-5.55z"/></svg>
-            <span>Shorts</span>
-        </div>
-        <div class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4v12h16V4zm2 14H2v-2h20v2zM10 8l6 4-6 4V8z"/></svg>
-            <span>Inscrições</span>
-        </div>
+        <div style="color:white; text-align:center; font-size:12px;">Início</div>
+        <div style="color:white; text-align:center; font-size:12px;">Shorts</div>
+        <div style="color:white; text-align:center; font-size:12px;">Biblioteca</div>
     </nav>
 
     <script>
-        const API_KEY = "AIzaSyBxEH-LJYAiWfV21yBjwy6CNcpwh-vWsOk"; // Use sua chave aqui
-
-        async function searchVideos(query) {
-            const feed = document.getElementById('videoFeed');
-            feed.innerHTML = '<p style="text-align:center">Carregando...</p>';
-            
-            try {
-                const response = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=10&q=${query}&type=video&key=${API_KEY}`);
-                const data = await response.json();
-                
-                feed.innerHTML = '';
-                data.items.forEach(item => {
-                    const card = document.createElement('div');
-                    card.className = 'video-card';
-                    card.onclick = () => {
-                        // Troca o vídeo no player principal usando o motor nocookie
-                        document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${item.id.videoId}?autoplay=1&modestbranding=1`;
-                        window.scrollTo(0,0);
-                    };
-                    
-                    card.innerHTML = `
-                        <img class="thumbnail" src="${item.snippet.thumbnails.medium.url}">
-                        <div class="video-details">
-                            <div class="channel-icon"></div>
-                            <div class="text-info">
-                                <h3>${item.snippet.title}</h3>
-                                <p>${item.snippet.channelTitle}</p>
-                            </div>
-                        </div>
-                    `;
-                    feed.appendChild(card);
-                });
-            } catch (error) {
-                feed.innerHTML = '<p style="text-align:center">Erro ao carregar vídeos.</p>';
-            }
+        function loadVideo(id) {
+            // Motor sem chave e com privacidade reforçada
+            document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
+            window.scrollTo(0,0);
         }
-
-        // Inicia com uma busca padrão
-        searchVideos('Música Nordestina');
     </script>
 </body>
 </html>
