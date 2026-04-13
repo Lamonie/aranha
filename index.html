@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>TESTE DE INTERFACE - LAMONIÊ</title>
+    <title>TESTE LAMONIÊ FLASH</title>
     <style>
         :root {
             --yt-black: #0f0f0f;
-            --yt-red: #ff0000;
             --yt-white: #ffffff;
             --yt-gray: #272727;
             --lamonie-gold: #FFD700;
@@ -16,38 +15,37 @@
         body {
             background-color: var(--yt-black);
             color: var(--yt-white);
-            font-family: "Roboto", Arial, sans-serif;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding-bottom: 70px;
-            overflow-x: hidden;
         }
 
         header {
             display: flex;
             align-items: center;
-            justify-content: space-between;
             padding: 10px 16px;
-            height: 56px;
+            height: 40px;
             position: fixed;
             top: 0;
             width: 100%;
             background: var(--yt-black);
             z-index: 1000;
+            border-bottom: 1px solid #333;
         }
 
-        .logo-text {
+        .logo {
             font-weight: bold;
             font-size: 18px;
             color: var(--lamonie-gold);
         }
 
-        /* --- PLAYER FIXO NO TOPO --- */
-        #video-viewport {
+        /* ÁREA DO VÍDEO FIXA NO TOPO */
+        #video-container {
             width: 100%;
             position: fixed;
-            top: 56px;
-            background: #000;
+            top: 60px;
             z-index: 900;
+            background: #000;
         }
 
         .video-wrapper {
@@ -61,54 +59,54 @@
             border: none;
         }
 
-        /* --- CATEGORIAS --- */
+        /* BOTÕES DE CATEGORIA */
         .categories {
             display: flex;
             overflow-x: auto;
             padding: 12px;
-            gap: 12px;
-            margin-top: calc(56px + 56.25vw); 
-            scrollbar-width: none;
+            gap: 10px;
+            margin-top: calc(60px + 56.25vw);
         }
-        .categories::-webkit-scrollbar { display: none; }
 
         .cat-btn {
             background: var(--yt-gray);
             color: white;
-            padding: 8px 16px;
-            border-radius: 8px;
+            padding: 8px 15px;
+            border-radius: 20px;
             border: none;
             font-size: 14px;
-            font-weight: 500;
             white-space: nowrap;
         }
 
-        /* --- LISTA DE VÍDEOS (ESQUELETO) --- */
-        .feed { padding: 10px; }
-        .video-card {
+        /* LISTA DE VÍDEOS PARA CLICAR */
+        .feed { padding: 15px; }
+        
+        .video-item {
             display: flex;
-            gap: 12px;
-            margin-bottom: 15px;
-            background: #1a1a1a;
-            padding: 8px;
-            border-radius: 8px;
+            gap: 15px;
+            margin-bottom: 20px;
             cursor: pointer;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 8px;
         }
-        .thumb-demo {
-            width: 120px;
-            height: 68px;
+
+        .thumb-box {
+            width: 140px;
+            height: 80px;
             background: #333;
-            border-radius: 4px;
+            border-radius: 5px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 10px;
-            color: #666;
+            font-size: 12px;
+            color: #777;
         }
-        .info-demo h3 { font-size: 14px; margin: 0; color: #eee; }
-        .info-demo p { font-size: 12px; color: #888; margin: 4px 0 0; }
 
-        .bottom-nav {
+        .video-info h3 { font-size: 14px; margin: 0; }
+        .video-info p { font-size: 12px; color: #aaa; margin-top: 5px; }
+
+        .nav-bar {
             position: fixed;
             bottom: 0;
             width: 100%;
@@ -118,20 +116,18 @@
             justify-content: space-around;
             align-items: center;
             border-top: 1px solid #333;
-            z-index: 1000;
         }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="logo-text">LAMONIÊ FLASH</div>
-        <svg fill="white" width="24" height="24" viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
+        <div class="logo">LAMONIÊ FLASH PREMIERE</div>
     </header>
 
-    <div id="video-viewport">
+    <div id="video-container">
         <div class="video-wrapper">
-            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed?listType=search&list=LuizGonzaga&modestbranding=1" allowfullscreen></iframe>
+            <iframe id="player" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?modestbranding=1&rel=0" allowfullscreen></iframe>
         </div>
     </div>
 
@@ -139,38 +135,40 @@
         <button class="cat-btn">Tudo</button>
         <button class="cat-btn">Forró</button>
         <button class="cat-btn">Notícias</button>
-        <button class="cat-btn">Ao Vivo</button>
+        <button class="cat-btn">Ceará</button>
     </div>
 
     <main class="feed">
-        <div class="video-card" onclick="loadVideo('dQw4w9WgXcQ')">
-            <div class="thumb-demo">VÍDEO 1</div>
-            <div class="info-demo">
-                <h3>Teste de Vídeo - Clique aqui</h3>
-                <p>Canal de Teste • 100k visualizações</p>
+        <div class="video-item" onclick="trocarVideo('dQw4w9WgXcQ', 'Música de Teste 1')">
+            <div class="thumb-box">VÍDEO 1</div>
+            <div class="video-info">
+                <h3>Teste: Luiz Gonzaga - Asa Branca</h3>
+                <p>Lamoniê Flash • Canal Oficial</p>
             </div>
         </div>
-        <div class="video-card" onclick="loadVideo('L_jWHffIx5E')">
-            <div class="thumb-demo">VÍDEO 2</div>
-            <div class="info-demo">
-                <h3>Outro Vídeo de Exemplo</h3>
-                <p>Canal Lamoniê • 50k visualizações</p>
+
+        <div class="video-item" onclick="trocarVideo('L_jWHffIx5E', 'Música de Teste 2')">
+            <div class="thumb-box">VÍDEO 2</div>
+            <div class="video-info">
+                <h3>Teste: Forró das Antigas</h3>
+                <p>Lamoniê Flash • Canal Oficial</p>
             </div>
         </div>
     </main>
 
-    <nav class="bottom-nav">
-        <div style="color:white; text-align:center; font-size:12px;">Início</div>
-        <div style="color:white; text-align:center; font-size:12px;">Shorts</div>
-        <div style="color:white; text-align:center; font-size:12px;">Biblioteca</div>
+    <nav class="nav-bar">
+        <span>Início</span>
+        <span>Shorts</span>
+        <span>Canal</span>
     </nav>
 
     <script>
-        function loadVideo(id) {
-            // Motor sem chave e com privacidade reforçada
-            document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${id}?autoplay=1&modestbranding=1&rel=0`;
+        function trocarVideo(id, titulo) {
+            // O segredo do teste está no 'youtube-nocookie' para ver se corta os comerciais
+            document.getElementById('player').src = "https://www.youtube-nocookie.com/embed/" + id + "?autoplay=1&modestbranding=1&rel=0";
             window.scrollTo(0,0);
         }
     </script>
+
 </body>
 </html>
