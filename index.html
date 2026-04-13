@@ -2,62 +2,71 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>LAMONIÊ FLASH</title>
     <style>
         body, html {
             margin: 0;
             padding: 0;
-            height: 100%;
-            overflow: hidden;
-            background-color: #000;
+            background-color: #0f0f0f;
+            font-family: Arial, sans-serif;
+            overflow: hidden; /* Trava a rolagem do corpo */
         }
 
-        /* A TARJA PARA TAMPAR O LOGO ORIGINAL */
-        #header-overlay {
+        /* TARJA SUPERIOR PROFISSIONAL - SEM EMOJI */
+        #top-bar {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            height: 56px; /* Altura padrão do topo do YouTube */
-            background-color: #0f0f0f; /* Cor exata do modo escuro do YouTube */
+            height: 50px;
+            background-color: #0f0f0f;
             display: flex;
             align-items: center;
-            padding-left: 16px;
-            z-index: 9999; /* Garante que fica por cima de tudo */
+            justify-content: space-between;
+            padding: 0 15px;
+            z-index: 9999;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
             border-bottom: 1px solid #333;
+            box-sizing: border-box;
         }
 
-        .logo-text {
-            color: #FFD700; /* Dourado Lamoniê */
-            font-family: 'Roboto', sans-serif;
+        .brand-name {
+            color: #FFD700; /* DOURADO LAMONIÊ */
             font-weight: bold;
-            font-size: 20px;
-            text-transform: uppercase;
+            font-size: 18px;
             letter-spacing: 1px;
         }
 
-        /* O YOUTUBE REAL RODANDO POR BAIXO */
-        #youtube-frame {
+        /* O CONTAINER DO YOUTUBE */
+        #content-wrapper {
+            position: absolute;
+            top: 50px; /* Começa logo abaixo da sua tarja */
+            left: 0;
             width: 100%;
-            height: calc(100% - 0px); /* Ocupa a tela toda */
-            border: none;
-            margin-top: 0px;
+            height: calc(100vh - 50px);
+            -webkit-overflow-scrolling: touch;
+            overflow-y: auto;
+        }
+
+        object {
+            width: 100%;
+            height: 100%;
         }
     </style>
 </head>
 <body>
 
-    <div id="header-overlay">
-        <div class="logo-text">LAMONIÊ FLASH</div>
+    <div id="top-bar">
+        <div class="brand-name">LAMONIÊ FLASH</div>
+        <div style="color: white; font-size: 12px;">2026 PRO</div>
     </div>
 
-    <iframe 
-        id="youtube-frame" 
-        src="https://www.youtube.com" 
-        allow="autoplay; encrypted-media; picture-in-picture" 
-        allowfullscreen>
-    </iframe>
+    <div id="content-wrapper">
+        <object data="https://m.youtube.com" type="text/html">
+            <embed src="https://m.youtube.com" type="text/html">
+        </object>
+    </div>
 
 </body>
 </html>
