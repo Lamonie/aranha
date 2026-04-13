@@ -3,32 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>LAMONIÊ FLASH - PRO</title>
+    <title>LAMONIÊ FLASH - SISTEMA PROFISSIONAL</title>
     <style>
         :root {
-            --bg-black: #0f0f0f;
-            --surface-gray: #272727;
-            --yt-red: #ff0000;
-            --text-white: #ffffff;
-            --text-gray: #aaa;
+            --yt-black: #0f0f0f;
+            --yt-white: #ffffff;
+            --yt-gray: #272727;
+            --yt-light-gray: #3f3f3f;
+            --lamonie-gold: #FFD700;
         }
 
         body {
-            background-color: var(--bg-black);
-            color: var(--text-white);
+            background-color: var(--yt-black);
+            color: var(--yt-white);
             font-family: "Roboto", Arial, sans-serif;
             margin: 0;
             padding: 0;
             overflow-x: hidden;
         }
 
-        /* --- BARRA SUPERIOR (TOP BAR) --- */
-        .top-bar {
+        /* BARRA SUPERIOR */
+        header {
             position: fixed;
             top: 0;
             width: 100%;
             height: 56px;
-            background: var(--bg-black);
+            background: var(--yt-black);
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -37,84 +37,138 @@
             box-sizing: border-box;
         }
 
-        .brand { color: #FFD700; font-weight: bold; font-size: 18px; }
-        .top-icons { display: flex; gap: 20px; align-items: center; }
+        .logo-area {
+            color: var(--lamonie-gold);
+            font-weight: bold;
+            font-size: 18px;
+            text-transform: uppercase;
+        }
 
-        /* --- PLAYER DE VÍDEO PROFISSIONAL --- */
-        .video-container {
+        .top-icons svg {
+            fill: white;
+            width: 24px;
+            height: 24px;
+            margin-left: 20px;
+            vertical-align: middle;
+        }
+
+        /* PLAYER FIXO ESTILO PREMIUM */
+        #video-viewport {
             position: fixed;
             top: 56px;
             width: 100%;
             z-index: 900;
             background: #000;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.9);
         }
 
-        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; position: relative; }
+        .video-wrapper {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+        }
+
         iframe { width: 100%; height: 100%; border: none; }
 
-        /* --- SEÇÃO DE INTERAÇÃO (BOTÕES) --- */
-        .interaction-bar {
+        /* SEÇÃO DE INTERAÇÃO ABAIXO DO VÍDEO */
+        .video-meta {
             padding: 12px;
-            display: flex;
-            gap: 15px;
-            overflow-x: auto;
-            scrollbar-width: none;
-            border-bottom: 1px solid #333;
+            background: var(--yt-black);
         }
-        .interaction-bar::-webkit-scrollbar { display: none; }
 
-        .action-btn {
-            background: var(--surface-gray);
-            padding: 8px 16px;
-            border-radius: 20px;
+        .video-title {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .action-bar {
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            padding: 8px 0;
+            scrollbar-width: none;
+        }
+        .action-bar::-webkit-scrollbar { display: none; }
+
+        .btn-action {
+            background: var(--yt-gray);
             border: none;
             color: white;
-            font-size: 13px;
-            white-space: nowrap;
+            padding: 6px 16px;
+            border-radius: 18px;
+            font-size: 14px;
             font-weight: 500;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 6px;
         }
 
-        .subscribe-btn {
+        .btn-subscribe {
             background: white;
             color: black;
             font-weight: bold;
-            border-radius: 20px;
             padding: 8px 16px;
+            border-radius: 18px;
             border: none;
+            margin-right: 8px;
         }
 
-        /* --- FEED E CARROSSÉIS --- */
-        .content-area {
-            margin-top: calc(56px + 56.25vw);
-            padding-bottom: 70px;
+        /* FEED DE VÍDEOS RECOMENDADOS */
+        .content-scroll {
+            margin-top: calc(56px + 56.25vw + 120px);
+            padding-bottom: 80px;
         }
-
-        .section-title { padding: 15px; font-size: 16px; font-weight: bold; }
 
         .video-card {
-            margin-bottom: 20px;
+            margin-bottom: 12px;
+            display: flex;
+            flex-direction: column;
             cursor: pointer;
         }
 
-        .thumb {
+        .card-thumb {
             width: 100%;
             aspect-ratio: 16/9;
-            background: #333;
+            background: #222;
             object-fit: cover;
         }
 
-        .details { display: flex; padding: 12px; gap: 12px; }
-        .channel-pfp { width: 40px; height: 40px; background: #444; border-radius: 50%; }
-        .text-meta h3 { font-size: 14px; margin: 0 0 5px 0; line-height: 1.4; }
-        .text-meta p { font-size: 12px; color: var(--text-gray); margin: 0; }
+        .card-details {
+            display: flex;
+            padding: 12px;
+            gap: 12px;
+        }
 
-        /* --- BARRA INFERIOR (BOTTOM NAV) --- */
+        .channel-avatar {
+            width: 36px;
+            height: 36px;
+            background: var(--yt-gray);
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        .info-text h3 {
+            font-size: 14px;
+            margin: 0 0 4px 0;
+            line-height: 1.4;
+            max-height: 40px;
+            overflow: hidden;
+        }
+
+        .info-text p {
+            font-size: 12px;
+            color: var(--text-gray);
+            margin: 0;
+        }
+
+        /* NAVEGAÇÃO INFERIOR */
         .bottom-nav {
             position: fixed;
             bottom: 0;
             width: 100%;
             height: 60px;
-            background: var(--bg-black);
+            background: var(--yt-black);
             display: flex;
             justify-content: space-around;
             align-items: center;
@@ -122,78 +176,105 @@
             z-index: 1000;
         }
 
-        .nav-item {
+        .nav-link {
             text-align: center;
+            color: white;
             font-size: 10px;
-            color: var(--text-white);
-            cursor: pointer;
-            opacity: 0.8;
+            text-decoration: none;
+            opacity: 0.7;
         }
 
-        .nav-item.active { opacity: 1; font-weight: bold; }
+        .nav-link svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+            display: block;
+            margin: 0 auto 4px;
+        }
+
+        .nav-link.active { opacity: 1; }
+
     </style>
 </head>
 <body>
 
-    <header class="top-bar">
-        <div class="brand">LAMONIÊ FLASH</div>
+    <header>
+        <div class="logo-area">LAMONIÊ FLASH</div>
         <div class="top-icons">
-            <span>➕</span> <span>🔔</span> <span>🔍</span> <span>👤</span>
+            <svg viewBox="0 0 24 24"><path d="M17 10.5V7c0-.55-.45-1-1-1H4c-.55 0-1 .45-1 1v10c0 .55.45 1 1 1h12c.55 0 1-.45 1-1v-3.5l4 4v-11l-4 4zM14 13h-3v3H9v-3H6v-2h3V8h2v3h3v2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M12 22c1.1 0 2-.9 2-2h-4c0 1.1.9 2 2 2zm6-6v-5c0-3.07-1.63-5.64-4.5-6.32V4c0-.83-.67-1.5-1.5-1.5s-1.5.67-1.5 1.5v.68C7.64 4.36 6 6.92 6 10v5l-2 2v1h16v-1l-2-2z"/></svg>
+            <svg viewBox="0 0 24 24"><path d="M15.5 14h-.79l-.28-.27A6.471 6.471 0 0 0 16 9.5 6.5 6.5 0 1 0 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z"/></svg>
         </div>
     </header>
 
-    <div class="video-container">
+    <div id="video-viewport">
         <div class="video-wrapper">
-            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?modestbranding=1&rel=0&autoplay=1" allowfullscreen></iframe>
+            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?modestbranding=1&rel=0" allowfullscreen></iframe>
         </div>
-        
-        <div class="interaction-bar">
-            <button class="subscribe-btn">Inscrever-se</button>
-            <button class="action-btn">👍 12k</button>
-            <button class="action-btn">👎</button>
-            <button class="action-btn">Compartilhar</button>
-            <button class="action-btn">Download</button>
-            <button class="action-btn">Salvar</button>
+        <div class="video-meta">
+            <div class="video-title" id="currentTitle">Carregando conteúdo...</div>
+            <div class="action-bar">
+                <button class="btn-subscribe">Inscrever-se</button>
+                <button class="btn-action">Gostei</button>
+                <button class="btn-action">Compartilhar</button>
+                <button class="btn-action">Download</button>
+                <button class="btn-action">Salvar</button>
+            </div>
         </div>
     </div>
 
-    <main class="content-area" id="mainFeed">
-        <div class="section-title">Recomendados</div>
+    <main class="content-scroll" id="feedArea">
         </main>
 
     <nav class="bottom-nav">
-        <div class="nav-item active">🏠<br>Início</div>
-        <div class="nav-item">🩳<br>Shorts</div>
-        <div class="nav-item">🔔<br>Inscrições</div>
-        <div class="nav-item">📚<br>Biblioteca</div>
+        <div class="nav-link active">
+            <svg viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"/></svg>
+            Início
+        </div>
+        <div class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M10 14.65v-5.3L15 12l-5 2.65zm7.77-4.33-1.2-.5L18 8.06c1.84-1.2 2.32-3.61 1.08-5.41-1.2-1.84-3.61-2.32-5.41-1.08L5 7.08C3.12 8.38 2.73 10.88 4.05 12.63l1.2.5L4 14.94c-1.84 1.2-2.32 3.61-1.08 5.41 1.2 1.84 3.61 2.32 5.41 1.08l8.67-5.51c1.87-1.3 2.26-3.8 0.94-5.55z"/></svg>
+            Shorts
+        </div>
+        <div class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4v12h16V4zm2 14H2v-2h20v2zM10 8l6 4-6 4V8z"/></svg>
+            Inscrições
+        </div>
+        <div class="nav-link">
+            <svg viewBox="0 0 24 24"><path d="M12 11c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/></svg>
+            Biblioteca
+        </div>
     </nav>
 
     <script>
-        // Simulando dados da API (O leque de vídeos)
-        const videosData = [
-            {id: 'dQw4w9WgXcQ', title: 'Luiz Gonzaga - O Melhor do Forró', channel: 'Rei do Baião'},
+        // Dados simulados para o "Leque" de vídeos
+        const videoList = [
+            {id: 'dQw4w9WgXcQ', title: 'Luiz Gonzaga - Clássicos do Baião', channel: 'Cultura Nordeste'},
             {id: 'L_jWHffIx5E', title: 'Forró das Antigas - Especial 2026', channel: 'Lamoniê Music'},
-            {id: 'v2AC41dglnM', title: 'Notícias de Jaíbaras e Ceará', channel: 'Jornal Regional'},
-            {id: 'hT_nvWreIhg', title: 'Xote das Meninas - Versão Remasterizada', channel: 'Cultura Nordeste'},
-            {id: '5p_2u87N644', title: 'Show Completo - Mastruz com Leite', channel: 'Forró Premium'}
+            {id: 'v2AC41dglnM', title: 'Notícias Urgentes de Jaíbaras', channel: 'Portal Regional'},
+            {id: 'hT_nvWreIhg', title: 'Dominguinhos - Solo de Sanfona', channel: 'Acervo Musical'},
+            {id: '5p_2u87N644', title: 'O Melhor do Xote e Baião', channel: 'Sertão Vivo'},
+            {id: 'k_vMv7v6Y_o', title: 'Luiz Gonzaga & Sivuca ao Vivo', channel: 'Memória Brasileira'}
         ];
 
-        function renderFeed() {
-            const feed = document.getElementById('mainFeed');
-            videosData.forEach(v => {
+        function initFeed() {
+            const feed = document.getElementById('feedArea');
+            document.getElementById('currentTitle').innerText = videoList[0].title;
+            
+            videoList.forEach(v => {
                 const card = document.createElement('div');
                 card.className = 'video-card';
                 card.onclick = () => {
                     document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&modestbranding=1`;
+                    document.getElementById('currentTitle').innerText = v.title;
                     window.scrollTo(0,0);
                 };
                 card.innerHTML = `
-                    <img class="thumb" src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg">
-                    <div class="details">
-                        <div class="channel-pfp"></div>
-                        <div class="text-meta">
+                    <img class="card-thumb" src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg">
+                    <div class="card-details">
+                        <div class="channel-avatar"></div>
+                        <div class="info-text">
                             <h3>${v.title}</h3>
-                            <p>${v.channel} • 120 mil visualizações</p>
+                            <p>${v.channel} • 150 mil visualizações</p>
                         </div>
                     </div>
                 `;
@@ -201,19 +282,7 @@
             });
         }
 
-        // Executa o carregamento dinâmico
-        renderFeed();
-
-        // Gesto Simulado: Duplo toque (Lógica simples)
-        let lastTap = 0;
-        document.getElementById('mainPlayer').addEventListener('touchend', function(e) {
-            let currentTime = new Date().getTime();
-            let tapLength = currentTime - lastTap;
-            if (tapLength < 500 && tapLength > 0) {
-                alert('Gesto: Avançar 10 segundos');
-            }
-            lastTap = currentTime;
-        });
+        initFeed();
     </script>
 </body>
 </html>
