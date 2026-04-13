@@ -2,71 +2,218 @@
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>LAMONIÊ FLASH</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>LAMONIÊ FLASH - PRO</title>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            background-color: #0f0f0f;
-            font-family: Arial, sans-serif;
-            overflow: hidden; /* Trava a rolagem do corpo */
+        :root {
+            --bg-black: #0f0f0f;
+            --surface-gray: #272727;
+            --yt-red: #ff0000;
+            --text-white: #ffffff;
+            --text-gray: #aaa;
         }
 
-        /* TARJA SUPERIOR PROFISSIONAL - SEM EMOJI */
-        #top-bar {
+        body {
+            background-color: var(--bg-black);
+            color: var(--text-white);
+            font-family: "Roboto", Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+        }
+
+        /* --- BARRA SUPERIOR (TOP BAR) --- */
+        .top-bar {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
-            height: 50px;
-            background-color: #0f0f0f;
+            height: 56px;
+            background: var(--bg-black);
             display: flex;
             align-items: center;
             justify-content: space-between;
-            padding: 0 15px;
-            z-index: 9999;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.5);
-            border-bottom: 1px solid #333;
+            padding: 0 16px;
+            z-index: 1000;
             box-sizing: border-box;
         }
 
-        .brand-name {
-            color: #FFD700; /* DOURADO LAMONIÊ */
+        .brand { color: #FFD700; font-weight: bold; font-size: 18px; }
+        .top-icons { display: flex; gap: 20px; align-items: center; }
+
+        /* --- PLAYER DE VÍDEO PROFISSIONAL --- */
+        .video-container {
+            position: fixed;
+            top: 56px;
+            width: 100%;
+            z-index: 900;
+            background: #000;
+        }
+
+        .video-wrapper { width: 100%; aspect-ratio: 16 / 9; position: relative; }
+        iframe { width: 100%; height: 100%; border: none; }
+
+        /* --- SEÇÃO DE INTERAÇÃO (BOTÕES) --- */
+        .interaction-bar {
+            padding: 12px;
+            display: flex;
+            gap: 15px;
+            overflow-x: auto;
+            scrollbar-width: none;
+            border-bottom: 1px solid #333;
+        }
+        .interaction-bar::-webkit-scrollbar { display: none; }
+
+        .action-btn {
+            background: var(--surface-gray);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: none;
+            color: white;
+            font-size: 13px;
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .subscribe-btn {
+            background: white;
+            color: black;
             font-weight: bold;
-            font-size: 18px;
-            letter-spacing: 1px;
+            border-radius: 20px;
+            padding: 8px 16px;
+            border: none;
         }
 
-        /* O CONTAINER DO YOUTUBE */
-        #content-wrapper {
-            position: absolute;
-            top: 50px; /* Começa logo abaixo da sua tarja */
-            left: 0;
-            width: 100%;
-            height: calc(100vh - 50px);
-            -webkit-overflow-scrolling: touch;
-            overflow-y: auto;
+        /* --- FEED E CARROSSÉIS --- */
+        .content-area {
+            margin-top: calc(56px + 56.25vw);
+            padding-bottom: 70px;
         }
 
-        object {
-            width: 100%;
-            height: 100%;
+        .section-title { padding: 15px; font-size: 16px; font-weight: bold; }
+
+        .video-card {
+            margin-bottom: 20px;
+            cursor: pointer;
         }
+
+        .thumb {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #333;
+            object-fit: cover;
+        }
+
+        .details { display: flex; padding: 12px; gap: 12px; }
+        .channel-pfp { width: 40px; height: 40px; background: #444; border-radius: 50%; }
+        .text-meta h3 { font-size: 14px; margin: 0 0 5px 0; line-height: 1.4; }
+        .text-meta p { font-size: 12px; color: var(--text-gray); margin: 0; }
+
+        /* --- BARRA INFERIOR (BOTTOM NAV) --- */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            height: 60px;
+            background: var(--bg-black);
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #333;
+            z-index: 1000;
+        }
+
+        .nav-item {
+            text-align: center;
+            font-size: 10px;
+            color: var(--text-white);
+            cursor: pointer;
+            opacity: 0.8;
+        }
+
+        .nav-item.active { opacity: 1; font-weight: bold; }
     </style>
 </head>
 <body>
 
-    <div id="top-bar">
-        <div class="brand-name">LAMONIÊ FLASH</div>
-        <div style="color: white; font-size: 12px;">2026 PRO</div>
+    <header class="top-bar">
+        <div class="brand">LAMONIÊ FLASH</div>
+        <div class="top-icons">
+            <span>➕</span> <span>🔔</span> <span>🔍</span> <span>👤</span>
+        </div>
+    </header>
+
+    <div class="video-container">
+        <div class="video-wrapper">
+            <iframe id="mainPlayer" src="https://www.youtube-nocookie.com/embed/L_jWHffIx5E?modestbranding=1&rel=0&autoplay=1" allowfullscreen></iframe>
+        </div>
+        
+        <div class="interaction-bar">
+            <button class="subscribe-btn">Inscrever-se</button>
+            <button class="action-btn">👍 12k</button>
+            <button class="action-btn">👎</button>
+            <button class="action-btn">Compartilhar</button>
+            <button class="action-btn">Download</button>
+            <button class="action-btn">Salvar</button>
+        </div>
     </div>
 
-    <div id="content-wrapper">
-        <object data="https://m.youtube.com" type="text/html">
-            <embed src="https://m.youtube.com" type="text/html">
-        </object>
-    </div>
+    <main class="content-area" id="mainFeed">
+        <div class="section-title">Recomendados</div>
+        </main>
 
+    <nav class="bottom-nav">
+        <div class="nav-item active">🏠<br>Início</div>
+        <div class="nav-item">🩳<br>Shorts</div>
+        <div class="nav-item">🔔<br>Inscrições</div>
+        <div class="nav-item">📚<br>Biblioteca</div>
+    </nav>
+
+    <script>
+        // Simulando dados da API (O leque de vídeos)
+        const videosData = [
+            {id: 'dQw4w9WgXcQ', title: 'Luiz Gonzaga - O Melhor do Forró', channel: 'Rei do Baião'},
+            {id: 'L_jWHffIx5E', title: 'Forró das Antigas - Especial 2026', channel: 'Lamoniê Music'},
+            {id: 'v2AC41dglnM', title: 'Notícias de Jaíbaras e Ceará', channel: 'Jornal Regional'},
+            {id: 'hT_nvWreIhg', title: 'Xote das Meninas - Versão Remasterizada', channel: 'Cultura Nordeste'},
+            {id: '5p_2u87N644', title: 'Show Completo - Mastruz com Leite', channel: 'Forró Premium'}
+        ];
+
+        function renderFeed() {
+            const feed = document.getElementById('mainFeed');
+            videosData.forEach(v => {
+                const card = document.createElement('div');
+                card.className = 'video-card';
+                card.onclick = () => {
+                    document.getElementById('mainPlayer').src = `https://www.youtube-nocookie.com/embed/${v.id}?autoplay=1&modestbranding=1`;
+                    window.scrollTo(0,0);
+                };
+                card.innerHTML = `
+                    <img class="thumb" src="https://img.youtube.com/vi/${v.id}/maxresdefault.jpg">
+                    <div class="details">
+                        <div class="channel-pfp"></div>
+                        <div class="text-meta">
+                            <h3>${v.title}</h3>
+                            <p>${v.channel} • 120 mil visualizações</p>
+                        </div>
+                    </div>
+                `;
+                feed.appendChild(card);
+            });
+        }
+
+        // Executa o carregamento dinâmico
+        renderFeed();
+
+        // Gesto Simulado: Duplo toque (Lógica simples)
+        let lastTap = 0;
+        document.getElementById('mainPlayer').addEventListener('touchend', function(e) {
+            let currentTime = new Date().getTime();
+            let tapLength = currentTime - lastTap;
+            if (tapLength < 500 && tapLength > 0) {
+                alert('Gesto: Avançar 10 segundos');
+            }
+            lastTap = currentTime;
+        });
+    </script>
 </body>
 </html>
